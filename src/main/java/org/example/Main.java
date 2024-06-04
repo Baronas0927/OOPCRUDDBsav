@@ -11,39 +11,30 @@ import java.util.Scanner;
 public class Main {
     public static Scanner sc;
     public static void main(String[] args) throws SQLException {
-        System.out.println("-------------------------");
-        System.out.println("Database");
-        System.out.println("1. Insert author");
-        System.out.println("2. Show authors");
-        System.out.println("3. Edit authors");
-        System.out.println("4. Delete authors");
-        System.out.println("5. Exit program");
-        System.out.println("-------------------------");
+        Author.Start();
         sc = new Scanner(System.in);
         int input = sc.nextInt();
         sc.nextLine();
         while (true) {
             switch (input) {
                 case 1:
-                    Author.authorCreate();
+                    Author.Start();
+                    break;
                 case 2:
-                    System.out.println(Author.selectAll());
+                    Author.authorCreate();
+                    break;
                 case 3:
-
+                    System.out.println(Author.selectAll());
+                    break;
                 case 4:
+                    Author.authorEdit();
+                    break;
                 case 5:
+                    Author.authorDelete();
+                case 6:
                     System.exit(1);
             }
         }
-//        System.out.println(Author.selectAll());
-//        Author a = Author.findById(8);
-//        System.out.println(a);
-//
-//
-//        a.setSurname("luksinis");
-//        a.setId(4);
-//        a.update();
-//        System.out.println(a);
 
     }
 

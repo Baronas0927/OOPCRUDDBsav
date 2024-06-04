@@ -2,15 +2,17 @@ package org.example.models;
 
 import org.example.Main;
 
-import java.security.PublicKey;
+import javax.lang.model.element.Name;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import static org.example.Main.sc;
 
 public class Author {
     private String name;
     private String surname;
     private long id;
-
     public Author() {
     }
 
@@ -19,17 +21,45 @@ public class Author {
         this.name = name;
         this.surname = surname;
     }
-    public static void authorCreate(){
-        System.out.println("Iveskite autoriaus varda ir pavarde: ");
-        String name = Main.sc.nextLine();
-        String surname = Main.sc.nextLine();
-        System.out.println("ivedet: " + name + " " + surname);
-        Author.create(name,surname);
-        System.out.println("sukuriau");
-    }
-    public static void authorEdit(){
 
+    public static void authorCreate() {
+        System.out.println("Write new author name and surname: ");
+        String name = sc.nextLine();
+        String surname = sc.nextLine();
+        System.out.println("wrote: " + name + " " + surname);
+        Author.create(name, surname);
+        System.out.println("Created");
     }
+
+    public static void authorEdit() {
+        System.out.println("Select authors id:");
+        Author aut = findById(sc.nextInt());
+        System.out.println("Write name and surname:");
+        aut.setName(Main.sc.nextLine());
+        aut.setSurname(Main.sc.nextLine());
+        aut.update();
+        System.out.println("Author edited");
+    }
+
+    public static void authorDelete() {
+        System.out.println("Select authors id:");
+        Author aut = findById(sc.nextInt());
+        aut.delete();
+        aut.update();
+        System.out.println("Author deleted");
+    }
+    public static void Start(){
+        System.out.println("-------------------------");
+        System.out.println("Database");
+        System.out.println("1. Show program menu");
+        System.out.println("2. Insert author");
+        System.out.println("3. Show authors");
+        System.out.println("4. Edit authors");
+        System.out.println("5. Delete authors");
+        System.out.println("6. Exit program");
+        System.out.println("-------------------------");
+    }
+
     public static ArrayList selectAll() {
         ArrayList<Author> authors = new ArrayList<>();
         String query = "SELECT * FROM authors";
@@ -45,50 +75,50 @@ public class Author {
             stmt.close();
             rs.close();
         } catch (Exception e) {
-            System.out.println("kaboom");
+            System.out.println("");
         }
         return authors;
     }
-    public static Author findById(long id){
+
+    public static Author findById(long id) {
         String query = "SELECT * FROM authors where id = ?";
         Author aut = null;
-        try{
+        try {
             Connection con = Main.connect();
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setLong(1,id);
+            pst.setLong(1, id);
             ResultSet rs = pst.executeQuery();
-            while ((rs.next())){
+            while ((rs.next())) {
                 aut = new Author(rs.getLong("id"), rs.getString("name"), rs.getString("surname"));
             }
             con.close();
             pst.close();
             rs.close();
+        } catch (Exception e) {
+            System.out.println("Failed");
         }
-            catch  (Exception e){
-                System.out.println("Failed");
-            }
-            return aut;
-        }
-
-
-
-    public static void create(String name, String surname){
- String query = "INSERT INTO `authors` (`name`, `surname`) VALUES (?,?)";
- try{
-     Connection con = Main.connect();
-     PreparedStatement pst = con.prepareStatement(query);
-     pst.setString(1, name);
-     pst.setString(2, surname);
-     pst.executeUpdate();
-     con.close();
-     pst.close();
- }catch (Exception E){
-     System.out.println("");
- }
+        return aut;
     }
-    public void update(){
+
+
+    public static void create(String name, String surname) {
+        String query = "INSERT INTO `authors` (`name`, `surname`) VALUES (?,?)";
+        try {
+            Connection con = Main.connect();
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, name);
+            pst.setString(2, surname);
+            pst.executeUpdate();
+            con.close();
+            pst.close();
+        } catch (Exception E) {
+            System.out.println("");
+        }
+    }
+
+    public void update() {
         String query = "UPDATE `authors` SET `name`= ?, `surname` = ? WHERE id = ?";
-        try{
+        try {
             Connection con = Main.connect();
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, this.name);
@@ -97,24 +127,26 @@ public class Author {
             pst.executeUpdate();
             con.close();
             pst.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("");
         }
     }
-    public void delete(){
+
+    public void delete() {
         String query = "DELETE FROM `authors` WHERE id = ?";
-        try{
+        try {
             Connection con = Main.connect();
             PreparedStatement pst = con.prepareStatement(query);
             pst.setLong(1, this.id);
             pst.executeUpdate();
             con.close();
             pst.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("");
         }
     }
+
     public String getName() {
         return name;
     }
@@ -140,9 +172,7 @@ public class Author {
     }
 
 
-
-
-    }
+}
 
 
 
