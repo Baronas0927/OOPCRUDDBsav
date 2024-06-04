@@ -42,11 +42,16 @@ public class Author {
     }
 
     public static void authorDelete() {
-        System.out.println("Select authors id:");
+        System.out.println("Select authors id: ");
         Author aut = findById(sc.nextInt());
-        aut.delete();
-        aut.update();
-        System.out.println("Author deleted");
+        if(aut.getId() != 0) {
+            System.out.println("Selected id is:" + aut);
+            aut.delete();
+            aut.update();
+            System.out.println("Author deleted");
+        }else{
+            System.out.println("netrinkim to ko nera");
+        }
     }
     public static void Start(){
         System.out.println("-------------------------");
