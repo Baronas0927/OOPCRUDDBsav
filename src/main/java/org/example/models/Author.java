@@ -11,12 +11,25 @@ public class Author {
     private String surname;
     private long id;
 
+    public Author() {
+    }
+
     public Author(long id, String name, String surname) {
         this.id = id;
         this.name = name;
         this.surname = surname;
     }
+    public static void authorCreate(){
+        System.out.println("Iveskite autoriaus varda ir pavarde: ");
+        String name = Main.sc.nextLine();
+        String surname = Main.sc.nextLine();
+        System.out.println("ivedet: " + name + " " + surname);
+        Author.create(name,surname);
+        System.out.println("sukuriau");
+    }
+    public static void authorEdit(){
 
+    }
     public static ArrayList selectAll() {
         ArrayList<Author> authors = new ArrayList<>();
         String query = "SELECT * FROM authors";
@@ -70,7 +83,7 @@ public class Author {
      con.close();
      pst.close();
  }catch (Exception E){
-     System.out.println("Failed");
+     System.out.println("");
  }
     }
     public void update(){
@@ -86,7 +99,7 @@ public class Author {
             pst.close();
         }catch (Exception e){
             System.out.println(e);
-            System.out.println("Fail");
+            System.out.println("");
         }
     }
     public void delete(){
@@ -99,7 +112,7 @@ public class Author {
             con.close();
             pst.close();
         }catch (Exception e){
-            System.out.println("Fail");
+            System.out.println("");
         }
     }
     public String getName() {
