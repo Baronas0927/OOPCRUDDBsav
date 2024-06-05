@@ -3,6 +3,7 @@ package org.example;
 
 import org.example.models.Author;
 
+import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -46,7 +47,6 @@ public class Main {
         }
 
     }
-
     public static Connection connect() {
         Connection connection = null;
         try {

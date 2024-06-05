@@ -31,40 +31,6 @@ public class Author {
         System.out.println("Created");
     }
 
-    public static void authorEdit() {
-        System.out.println("Select authors id:");
-        Author aut = findById(sc.nextInt());
-        System.out.println("Write name and surname:");
-        aut.setName(Main.sc.nextLine());
-        aut.setSurname(Main.sc.nextLine());
-        aut.update();
-        System.out.println("Author edited");
-    }
-
-    public static void authorDelete() {
-        System.out.println("Select authors id: ");
-        Author aut = findById(sc.nextInt());
-        if(aut.getId() != 0) {
-            System.out.println("Selected id is:" + aut);
-            aut.delete();
-            aut.update();
-            System.out.println("Author deleted");
-        }else{
-            System.out.println("netrinkim to ko nera");
-        }
-    }
-    public static void Start(){
-        System.out.println("-------------------------");
-        System.out.println("Database");
-        System.out.println("1. Show program menu");
-        System.out.println("2. Insert author");
-        System.out.println("3. Show authors");
-        System.out.println("4. Edit authors");
-        System.out.println("5. Delete authors");
-        System.out.println("6. Exit program");
-        System.out.println("-------------------------");
-    }
-
     public static ArrayList selectAll() {
         ArrayList<Author> authors = new ArrayList<>();
         String query = "SELECT * FROM authors";
@@ -84,6 +50,42 @@ public class Author {
         }
         return authors;
     }
+
+    public static void authorEdit() {
+        System.out.println("Select authors id:");
+        Author aut = findById(sc.nextInt());
+        System.out.println("Write name and surname:");
+        aut.setName(Main.sc.nextLine());
+        aut.setSurname(Main.sc.nextLine());
+        aut.update();
+        System.out.println("Author edited");
+    }
+
+    public static void authorDelete() {
+        System.out.println("Select authors id: ");
+        Author aut = findById(sc.nextInt());
+        if(aut.getId() != 0) {
+            System.out.println("Selected id is:" + aut);
+            aut.delete();
+            aut.update();
+            System.out.println("Author deleted");
+        }else{
+            System.out.println("Do not delete what does not exist");
+        }
+    }
+    public static void Start(){
+        System.out.println("-------------------------");
+        System.out.println("Database");
+        System.out.println("1. Show program menu");
+        System.out.println("2. Insert author");
+        System.out.println("3. Show authors");
+        System.out.println("4. Edit authors");
+        System.out.println("5. Delete authors");
+        System.out.println("6. Exit program");
+        System.out.println("-------------------------");
+    }
+
+
 
     public static Author findById(long id) {
         String query = "SELECT * FROM authors where id = ?";
@@ -176,7 +178,14 @@ public class Author {
         this.id = id;
     }
 
-
+    @Override
+    public String toString() {
+        return
+                "\n Name:'" + name + '\'' +
+                ", Surname: '" + surname + '\'' +
+                ", id: " + id +
+                '}';
+    }
 }
 
 
