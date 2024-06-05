@@ -10,10 +10,14 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner sc;
+
     public static void main(String[] args) throws SQLException {
         Author.Start();
         sc = new Scanner(System.in);
         int input = sc.nextInt();
+        if (input == 0 | input > 6) {
+            System.out.println("Not an option");
+        }
         sc.nextLine();
         while (true) {
             switch (input) {
@@ -22,15 +26,20 @@ public class Main {
                     break;
                 case 2:
                     Author.authorCreate();
+                    Author.Start();
                     break;
                 case 3:
                     System.out.println(Author.selectAll());
+                    Author.Start();
                     break;
                 case 4:
                     Author.authorEdit();
+                    Author.Start();
                     break;
                 case 5:
                     Author.authorDelete();
+                    Author.Start();
+                    break;
                 case 6:
                     System.exit(1);
             }
