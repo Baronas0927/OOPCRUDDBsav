@@ -14,12 +14,12 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Author.Start();
         sc = new Scanner(System.in);
-        int input = sc.nextInt();
-        if (input == 0 | input > 6) {
-            System.out.println("Not an option");
-        }
-        sc.nextLine();
         while (true) {
+            int input = sc.nextInt();
+            if (input == 0 | input > 6) {
+                System.out.println("Not an option");
+            }
+            sc.nextLine();
             switch (input) {
                 case 1:
                     Author.Start();
